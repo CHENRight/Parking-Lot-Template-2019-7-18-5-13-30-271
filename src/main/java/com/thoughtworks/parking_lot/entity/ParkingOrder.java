@@ -1,20 +1,30 @@
 package com.thoughtworks.parking_lot.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
+@Entity
 public class ParkingOrder {
 
-    private int id;
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid")
+    private String id;
     private String parkingName;
     private String carNumber;
     private Date createDate;
     private Date fetchDate;
-    private boolean orderStstus;
+    private boolean orderStatus = true;
 
-    public ParkingOrder() {
-        this.orderStstus = true;
+    public ParkingOrder(String parkingName, String carNumber) {
+        this.parkingName = parkingName;
+        this.carNumber = carNumber;
     }
-
 
     public void setParkingName(String parkingName) {
         this.parkingName = parkingName;
@@ -32,7 +42,31 @@ public class ParkingOrder {
         this.fetchDate = fetchDate;
     }
 
-    public void setOrderStstus(boolean orderStstus) {
-        this.orderStstus = orderStstus;
+    public void setOrderStatus(boolean orderStstus) {
+        this.orderStatus = orderStstus;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getParkingName() {
+        return parkingName;
+    }
+
+    public String getCarNumber() {
+        return carNumber;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public Date getFetchDate() {
+        return fetchDate;
+    }
+
+    public boolean isOrderStatus() {
+        return orderStatus;
     }
 }

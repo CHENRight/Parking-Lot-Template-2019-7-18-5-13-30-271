@@ -1,22 +1,19 @@
 package com.thoughtworks.parking_lot.entity;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.UniqueElements;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.Negative;
-import javax.validation.constraints.NegativeOrZero;
-import java.util.HashMap;
-import java.util.Map;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "parking_lot")
 public class ParkingLot {
 
-    @UniqueElements
     @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid")
+    private String id;
+
+    @Column(unique = true)
     private String name;
     private int capacity;
     private String address;
@@ -29,6 +26,42 @@ public class ParkingLot {
         this.address = address;
     }
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "parkingLotId")
+    private List<Car> cars;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "parkingLotId")
+    private List<ParkingOrder> parkingOrders;
+
+
+    public boolean isFull(){
+        return capacity <= cars.size();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public List<Car> getCars() {
+        return cars;
+    }
+
+    public void setCars(List<Car> cars) {
+        this.cars = cars;
+    }
+
+    public List<ParkingOrder> getParkingOrders() {
+        return parkingOrders;
+    }
+
+    public void setParkingOrders(List<ParkingOrder> parkingOrders) {
+        this.parkingOrders = parkingOrders;
+    }
 
     public String getName() {
         return name;

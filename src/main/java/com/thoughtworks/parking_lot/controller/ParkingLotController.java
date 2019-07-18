@@ -1,10 +1,11 @@
 package com.thoughtworks.parking_lot.controller;
 
+import com.thoughtworks.parking_lot.entity.Car;
 import com.thoughtworks.parking_lot.entity.ParkingLot;
+import com.thoughtworks.parking_lot.entity.ParkingOrder;
 import com.thoughtworks.parking_lot.service.ParkingLotServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -14,14 +15,21 @@ public class ParkingLotController {
     @Autowired
     private ParkingLotServiceImpl parkingLotService;
 
+    @PostMapping
+    public ParkingLot save(@RequestBody ParkingLot parkingLot){
+        return parkingLotService.save(parkingLot);
+    }
+
+
+
     @DeleteMapping("/{name}")
     public List<ParkingLot> deleteParkingLotByName(@PathVariable String name){
         return parkingLotService.delete(name);
     }
 
-    @GetMapping
-    public List<ParkingLot> findAllAndPage(){
-        return parkingLotService.findAndPage();
+    @GetMapping(params = {"page"})
+    public List<ParkingLot> findAllAndPage(@RequestParam int page,@RequestParam(defaultValue = "15",required = false) int pageSize){
+        return (List<ParkingLot>) parkingLotService.findAndPage(page,pageSize);
     }
 
     @GetMapping("/{name}")
@@ -32,6 +40,16 @@ public class ParkingLotController {
     @PutMapping
     public ParkingLot updateCapacity(@RequestBody ParkingLot parkingLot){
         return parkingLotService.update(parkingLot);
+    }
+
+    @PostMapping("/{id}/parkingOrders")
+    public ParkingOrder park(@PathVariable String id,@RequestBody Car car){
+        return parkingLotService.park(id,car);
+    }
+
+    @PutMapping("/{id}/parkingOrders")
+    public ParkingOrder fetch(@PathVariable String id,@RequestBody Car car){
+        return parkingLotService.fetch(id,car);
     }
 
 }
