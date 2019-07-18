@@ -29,4 +29,9 @@ public class ParkingLotController {
         return parkingLotService.findByName(name);
     }
 
+    @PutMapping
+    public ParkingLot updateCapacity(@RequestBody ParkingLot parkingLot){
+        return parkingLotService.update(parkingLot);
+    }
+
 }

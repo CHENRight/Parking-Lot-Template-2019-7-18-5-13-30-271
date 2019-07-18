@@ -29,5 +29,9 @@ public class ParkingLotServiceImpl implements ParkingLotService{
         return parkingLotRepository.findById(name).get();
     }
 
+    public ParkingLot update(ParkingLot parkingLot){
+        return parkingLotRepository.save(parkingLot);
+    }
+
 
 }
