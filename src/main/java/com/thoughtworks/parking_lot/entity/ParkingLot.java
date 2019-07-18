@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Negative;
 import javax.validation.constraints.NegativeOrZero;
@@ -15,6 +16,7 @@ import java.util.Map;
 public class ParkingLot {
 
     @UniqueElements
+    @Id
     private String name;
     private int capacity;
     private String address;
