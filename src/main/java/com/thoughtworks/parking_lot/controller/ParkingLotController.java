@@ -24,4 +24,9 @@ public class ParkingLotController {
         return parkingLotService.findAndPage();
     }
 
+    @GetMapping("/{name}")
+    public ParkingLot findByName(@PathVariable String name){
+        return parkingLotService.findByName(name);
+    }
+
 }

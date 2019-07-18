@@ -25,5 +25,9 @@ public class ParkingLotServiceImpl implements ParkingLotService{
         return parkingLots.subList(0,15);
     }
 
+    public ParkingLot findByName(String name){
+        return parkingLotRepository.findById(name).get();
+    }
+
 
 }
