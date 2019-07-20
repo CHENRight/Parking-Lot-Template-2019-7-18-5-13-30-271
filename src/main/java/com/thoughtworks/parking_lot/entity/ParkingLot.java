@@ -1,16 +1,14 @@
 package com.thoughtworks.parking_lot.entity;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.validator.constraints.UniqueElements;
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table
 public class ParkingLot {
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid")
     private String id;
 
     @Column(unique = true)

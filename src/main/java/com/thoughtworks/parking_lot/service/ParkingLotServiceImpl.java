@@ -3,12 +3,12 @@ package com.thoughtworks.parking_lot.service;
 import com.thoughtworks.parking_lot.entity.Car;
 import com.thoughtworks.parking_lot.entity.ParkingLot;
 import com.thoughtworks.parking_lot.entity.ParkingOrder;
+import com.thoughtworks.parking_lot.exception.NotEnoughPositionException;
 import com.thoughtworks.parking_lot.repository.ParkingLotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Date;
 import java.util.List;
@@ -47,7 +47,7 @@ public class ParkingLotServiceImpl implements ParkingLotService{
     public ParkingOrder park(String parkingLotId, Car car){
         ParkingLot parkingLot = parkingLotRepository.findById(parkingLotId).get();
         if (parkingLot.isFull()) {
-            throw new RuntimeException("Not Enough Positions");
+            throw new RuntimeException();
         }
         ParkingOrder order = new ParkingOrder(parkingLot.getName(), car.getCarNumber());
         order.setCreateDate(new Date());

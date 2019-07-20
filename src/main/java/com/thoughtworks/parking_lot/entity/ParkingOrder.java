@@ -9,11 +9,10 @@ import javax.persistence.Table;
 import java.util.Date;
 
 @Entity
+@Table
 public class ParkingOrder {
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid")
     private String id;
     private String parkingName;
     private String carNumber;
@@ -21,6 +20,9 @@ public class ParkingOrder {
     private Date fetchDate;
     private boolean orderStatus = true;
 
+    public ParkingOrder(String parkingName){
+        this.parkingName = parkingName;
+    }
     public ParkingOrder(String parkingName, String carNumber) {
         this.parkingName = parkingName;
         this.carNumber = carNumber;

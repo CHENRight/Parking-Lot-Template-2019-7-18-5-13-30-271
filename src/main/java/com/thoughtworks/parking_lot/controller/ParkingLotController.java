@@ -5,6 +5,8 @@ import com.thoughtworks.parking_lot.entity.ParkingLot;
 import com.thoughtworks.parking_lot.entity.ParkingOrder;
 import com.thoughtworks.parking_lot.service.ParkingLotServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -28,8 +30,8 @@ public class ParkingLotController {
     }
 
     @GetMapping(params = {"page"})
-    public List<ParkingLot> findAllAndPage(@RequestParam int page,@RequestParam(defaultValue = "15",required = false) int pageSize){
-        return (List<ParkingLot>) parkingLotService.findAndPage(page,pageSize);
+    public Page<ParkingLot> findAllAndPage(@RequestParam int page, @RequestParam(defaultValue = "15",required = false) int pageSize){
+        return parkingLotService.findAndPage(page,pageSize);
     }
 
     @GetMapping("/{name}")
@@ -43,8 +45,8 @@ public class ParkingLotController {
     }
 
     @PostMapping("/{id}/parkingOrders")
-    public ParkingOrder park(@PathVariable String id,@RequestBody Car car){
-        return parkingLotService.park(id,car);
+    public ResponseEntity<ParkingOrder> park(@PathVariable String id, @RequestBody Car car){
+        return ResponseEntity.ok(parkingLotService.park(id,car));
     }
 
     @PutMapping("/{id}/parkingOrders")

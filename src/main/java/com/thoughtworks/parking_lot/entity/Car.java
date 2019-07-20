@@ -4,11 +4,10 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+@Table
 public class Car {
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid")
     private String id;
 
     private String carNumber;
@@ -17,6 +16,7 @@ public class Car {
     @JoinColumn(name = "parkingOrderId")
     private ParkingOrder parkingOrder;
 
+    public Car(){}
     public Car(String carNumber, ParkingOrder parkingOrder) {
         this.carNumber = carNumber;
         this.parkingOrder = parkingOrder;
